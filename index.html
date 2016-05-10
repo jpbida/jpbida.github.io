@@ -61,8 +61,8 @@
 
 
           <ul class="pager">
-            <li><a href="#">Previous</a></li>
-            <li><a href="#">Next</a></li>
+            <li><a href="#" cur_id=0 max_id=1 >Previous</a></li>
+            <li><a href="#" cur_id=0 max_id=1 >Next</a></li>
           </ul>
 
         </div><!-- /.blog-main -->
@@ -73,10 +73,7 @@
     </div><!-- /.container -->
 
     <div class="blog-footer">
-      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-      <p>
         <a href="#">Back to top</a>
-      </p>
     </div>
 
 
@@ -91,6 +88,22 @@ $(document).ready( function() {
         $("#post").load("https://jpbida.github.io/home.html");
     $("#home").on("click", function() {
         $("#post").load("https://jpbida.github.io/home.html");
+    });
+    $("#next").on("click", function() {
+        var cur_id=$(this).attr("cur_id");
+	var max_id=$(this).attr("max_id");
+if(cur_id*1 < max_id*1){
+        $("#post").load("https://jpbida.github.io/post"+cur_id*1+1+".html");
+        $(this).attr("cur_id",cur_id*1+1);
+}
+    });
+    $("#prev").on("click", function() {
+        var cur_id=$(this).attr("cur_id");
+	var max_id=$(this).attr("max_id");
+if(cur_id*1 > 0){
+        $("#post").load("https://jpbida.github.io/post"+cur_id*1-1+".html");
+        $(this).attr("cur_id",cur_id*1-1);
+}
     });
 });
 </script>
