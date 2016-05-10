@@ -93,6 +93,7 @@ $(document).ready( function() {
          
         var cur_id=$(this).attr("cur_id");
 	var max_id=$(this).attr("max_id");
+        alert(cur_id);
 if(cur_id*1 < max_id*1){
         $("#post").load("https://jpbida.github.io/post"+(cur_id*1+1)+".html");
         $(this).attr("cur_id",(cur_id*1+1));
@@ -102,6 +103,7 @@ if(cur_id*1 < max_id*1){
     $("#prev").on("click", function() {
         var cur_id=$(this).attr("cur_id");
 	var max_id=$(this).attr("max_id");
+        alert(cur_id);
 if(cur_id*1 > 0){
         $("#post").load("https://jpbida.github.io/post"+(cur_id*1-1)+".html");
         $(this).attr("cur_id",(cur_id*1-1));
