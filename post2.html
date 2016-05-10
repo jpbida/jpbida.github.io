@@ -1,0 +1,91 @@
+<div class="blog-post">
+            <h2 class="blog-post-title">RRNA: Creating RNA secondary structure plots in R</h2>
+            <p class="blog-post-meta">July 29, 2015 by <a href="#">John Paul Bida</a>
+</p>
+
+<p>
+In graduate school I worked in a lab that used in-vivo and in-vitro evolution to discover RNA aptamers that bound various proteins, small molecules, and lipids related to different diseases. We would frequently want to visualize the secondary structures for publication in manuscripts or for an exploratory analysis.  The plotting functions in RRNA were developed for this purpose. The following example is something we frequently did in lab. It is intended for Mac or Linux users.   
+</p>
+<h3> Installing RRNA </h3>
+<p> For this tutorial I'm using the RRNA package for R. To install this package do the following </p>
+<pre>
+## In an R session ###
+install.packages("RRNA")
+</pre>
+If the RRNA pacakge is not available you can download the source from CRAN and install the package using R's command installation. 
+<pre>
+R CMD install RRNA_1.0.tgz
+</pre>
+</p> 
+<h3> Compiling ViennaRNA </h3>
+<p> To generate secondary structures we will use the ViennaRNA library. To download and build the Vienna RNA library do the following</p>
+<pre>
+cd ~/
+mkdir -p RNA/algorithms
+cd ./RNA/algorithms
+wget http://www.tbi.univie.ac.at/RNA/packages/source/ViennaRNA-2.1.7.tar.gz
+gunzip ViennaRNA-2.1.7.tar.gz
+tar -xvf ViennaRNA-2.1.7.tar
+cd ViennaRNA-2.1.7
+./configure 
+make clean
+make
+</pre>
+
+<p> 
+You should now have the Vienna Library built. If you want to install it you can run 
+</p>
+<pre>
+make install
+</pre>
+
+<p> 
+However, you can always use the library from this RNA/algorithms directory and point to it while compiling the RRNAFold scripts.
+</p>
+<h3> Compiling RRNAfold</h3>
+<p> RRNAFold is a C script that uses the viennaRNA library to produce outputs for the RRNA package. If there is enough interest I may eventually incorporate the RRNAFold code into the RRNA package. To compile RRNAFold do the following.</p> 
+<pre>
+cd ~/RNA/algorithms
+git clone https://github.com/jpbida/ViennaScripts.git
+cd ViennaScripts
+</pre>
+<p>Edit the make file to point to the location of the ViennaRNA headers and library in your personal file system. It should look like this for the current setup.</p> 
+
+<pre>
+RRNAfold: RRNAfold.o RRNAfold_opts.o
+	gcc RRNAfold.o RRNAfold_opts.o -o RRNAfold -L/Users/{youruser}/RNA/algorithms/ViennaRNA-2.1.7/lib -lRNA -lm 
+
+RRNAfold.o: RRNAfold.c
+	gcc -c RRNAfold.c -I/Users/{youruser}/RNA/algorithms/ViennaRNA-2.1.7/H
+
+RRNAfold_opts.o: RRNAfold_opts.c
+	gcc -c RRNAfold_opts.c 
+</pre>
+<p>Compile the RRNAfold application </p>
+<pre>
+make RRNAfold
+</pre>
+<p>
+This should produce and executable called RRNAfold in the current directory 
+</p>
+
+<h3> Creating coordinate files </h3>
+<p>
+With RRNAfold you can create coordinate files of the minimal energy folds from given sequences. Start by creating a file that contains the sequences you would like to fold on seperate lines. We will call this file figure.seqs and it should have the contents. </p> 
+<pre>
+mkdir ~/RNA/projects
+cd ~/RNA/projects
+git clone [Example project here]
+</pre>
+<p>
+In the example project you will see a file
+</p>
+<pre>
+GTTTTACGTTTGAGGCCTCGTGGCGCACATGGTACGCTGTGGTGCTCGCGGCTGGGAACGAAACTCTGGGAGCTGCGATTGGCAGAATTCCGGCTAGAACTAGTGGATCCCCCTGCAGATGCGGCTCGAGATCGGACGGCGCGAAGCUUACAAGAAGGACAGCACGAAUAAAACCUGCGUAAAUCCGCCCCAUUUGUGUAAGGGUAGUGGGUCGAAUUCCGCUCAGCGCCGGATCTGCTTAGAGCATGCCTGCAGGTCGACTCTAGAAAACATGAGGATCACCCATGTCTGCAGGTCGACTCTAGAAAACATGAGGATCACCCATGTCTGCAGGTCGACTCTAGAGGATCGGAATTCCCCCATATCCAACTTCCAATTTAATCTTTCTTTTT
+GTTTTACGTTTGAGGCCTCGTGGCGCACATGGTACGCTGTGGTGCTCGCGGCTGGGAACGAAACTCTGGGAGCTGCGATTGGCAGAATTCCGTTAGCAAGGCCGCAGGACTTGGAAGCTTACAAGAAGGACAGCACGAATAAAACCTGCGTAAATCCGCCCCATTTGTGTAAGGGTAGTGGGTCGAATTCCGCTCACATGCTTATCCTGCGGCGCGGGCGCGTTTCCCCCTGCAGGTCGACTCTAGAAAACATGAGGATCACCCATGTCTGCAGGTCGACTCTAGAAAACATGAGGATCACCCATGTCTGCAGGGGGTTACGCGCCCGCCTTAAGTGTTTCTCGAGTTGGCACTTAAGCTTGCTAACGGAATTCCCCCATATCCAACTTCCAATTTAATCTTTCTTTTT
+GTTTTACGTTTGAGGCCTCGTGGCGCACATGGTACGCTGTGGTGCTCGCGGCTGGGAACGAAACTCTGGGAGCTGCGATTGGCAGAATTCCGGCTAGAACTAGTGGATCCCCCTGCAGATGCGGCTCGAGGCCGCCCGGCGCCATACTTGAAGCTGTAAAGTTGGCGTATGGCGCCGGGCGGCCATGCCTGCAGGTCGACTCTAGAAAACATGAGGATCACCCATGTCTGCAGGTCGACTCTAGAAAACATGAGGATCACCCATGTCTGCAGGTCGACTCTAGAGGATCGGAATTCCCCCATATCCAACTTCCAATTTAATCTTTCTTTTT
+GTTTTACGTTTGAGGCCTCGTGGCGCACATGGTACGCTGTGGTGCTCGCGGCTGGGAACGAAACTCTGGGAGCTGCGATTGGCAGAATTCCGTTAGCAAGGCCGCAGGACTTGCATACTTGAAACTGTAAGGTTGGCGTATGCATGCTTATCCTGCGGCGCGGGCGCGTTTCCCCCTGCAGGTCGACTCTAGAAAACATGAGGATCACCCATGTCTGCAGGTCGACTCTAGAAAACATGAGGATCACCCATGTCTGCAGGGGGTTACGCGCCCGCCTTAAGTGTTTCTCGAGTTGGCACTTAAGCTTGCTAACGGAATTCCCCCATATCCAACTTCCAATTTAATCTTTCTTTTT
+GTTTTACGTTTGAGGCCTCGTGGCGCACATGGTACGCTGTGGTGCTCGCGGCTGGGAACGAAACTCTGGGAGCTGCGATTGGCAGAATTCCGGCTAGAACTAGTGGATCCCCCTGCAGATGCGGCTCGAGATCGGAGATCTGCTTAGAGCATGCCTGCAGGTCGACTCTAGAAAACATGAGGATCACCCATGTCTGCAGGTCGACTCTAGAAAACATGAGGATCACCCATGTCTGCAGGTCGACTCTAGAGGATCGGAATTCCCCCATATCCAACTTCCAATTTAATCTTTCTTTTT
+GTTTTACGTTTGAGGCCTCGTGGCGCACATGGTACGCTGTGGTGCTCGCGGCTGGGAACGAAACTCTGGGAGCTGCGATTGGCAGAATTCCGTTAGCAAGGCCGCAGGACTTGCATGCTTATCCTGCGGCGCGGGCGCGTTTCCCGGGTTACGCGCCCGCCTTAAGTGTTTCTCGAGTTGGCACTTAAGCTTGCTAACGGAATTCCCCCATATCCAACTTCCAATTTAATCTTTCTTTTT
+</pre>
+</div>

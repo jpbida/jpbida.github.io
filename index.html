@@ -61,8 +61,8 @@
 
 
           <ul class="pager">
-            <li><a href="#" cur_id=0 max_id=1 id="prev" >Previous</a></li>
-            <li><a href="#" cur_id=0 max_id=1 id="next" >Next</a></li>
+            <li><a href="#" cur_id=0 max_id=2 id="prev" >Previous</a></li>
+            <li><a href="#" cur_id=0 max_id=2 id="next" >Next</a></li>
           </ul>
 
         </div><!-- /.blog-main -->
@@ -96,6 +96,7 @@ $(document).ready( function() {
 if(cur_id*1 < max_id*1){
         $("#post").load("https://jpbida.github.io/post"+(cur_id*1+1)+".html");
         $(this).attr("cur_id",(cur_id*1+1));
+        $("#prev").attr("cur_id",(cur_id*1+1));
 }
     });
     $("#prev").on("click", function() {
@@ -104,6 +105,7 @@ if(cur_id*1 < max_id*1){
 if(cur_id*1 > 0){
         $("#post").load("https://jpbida.github.io/post"+(cur_id*1-1)+".html");
         $(this).attr("cur_id",(cur_id*1-1));
+        $("#next").attr("cur_id",(cur_id*1+1));
 }
     });
 });
