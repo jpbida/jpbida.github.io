@@ -107,9 +107,11 @@ if(cur_id*1 > 0){
 
    $("#tutorials").click(function(){
         $("#post").load("https://jpbida.github.io/post1.html");
+        $(".pager").show();
    });
    $("#about").click(function(){
         $("#post").load("https://jpbida.github.io/about.html");
+        $(".pager").hide();
    });
 });
 </script>
