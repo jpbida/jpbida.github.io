@@ -56,7 +56,7 @@
           </div><!-- /.blog-post -->
 
 
-          <ul class="pager">
+          <ul class="pager" id="tutorial_nav">
             <li><a href="#" cur_id=0 max_id=2 id="prev" >Previous</a></li>
             <li><a href="#" cur_id=0 max_id=2 id="next" >Next</a></li>
           </ul>
@@ -107,11 +107,11 @@ if(cur_id*1 > 0){
 
    $("#tutorials").click(function(){
         $("#post").load("https://jpbida.github.io/post1.html");
-        $(".pager").show();
+        $("#tutorial_nav").show();
    });
    $("#about").click(function(){
         $("#post").load("https://jpbida.github.io/about.html");
-        $(".pager").hide();
+        $("#tutorial_nav").hide();
    });
 });
 </script>
