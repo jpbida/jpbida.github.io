@@ -108,10 +108,18 @@ if(cur_id*1 > 0){
    $("#tutorials").click(function(){
         $("#post").load("https://jpbida.github.io/post1.html");
         $("#tutorial_nav").show();
+        $("#tutorials").addClass("active");
+        $("#projects").removeClass("active");
+        $("#home").removeClass("active");
+        $("#about").removeClass("active");
    });
    $("#about").click(function(){
         $("#post").load("https://jpbida.github.io/about.html");
         $("#tutorial_nav").hide();
+        $("#tutorials").removeClass("active");
+        $("#projects").removeClass("active");
+        $("#home").removeClass("active");
+        $("#about").addClass("active");
    });
 });
 </script>
