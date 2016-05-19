@@ -1,0 +1,17 @@
+<h2 class="blog-post-title"> Create Hold down tabs with CAMBAM </h2>
+            <p class="blog-post-meta">May 19, 2016 by <a href="#">John Paul Bida</a></p>
+
+<p> When cutting out parts with a CNC router hold down tabs keep the peices from flying out of the stock material as you cut. A couple of things to consider </p> 
+
+<ol> 
+<li> If your table top is not even with the spindle 
+
+<p> In CAMBAM increase the target depth to make sure you cut all the way through the material at all places on the table. For example if you are cutting a 0.125 inch thick peice of MDF set the target depth to -0.18 and zero the z-axis to the top of the stock material. </p> 
+
+<p> When using hold down tabs in this situation make sure the height of the hold down tab is greater than the material thickness. For example set the tab height to 0.25. </p> 
+
+</li> 
+<li><p> Your material is thin and jitters when cut </p> 
+<p> Create another gcode file that marks the positions holding screws can go. Run this first on your stock material. Add the additional holding screws. Make sure your clearnace height is high enough to clear the tops of your holding screws. Run the gcode to cut out the parts </p> 
+</li> 
+</ol>  
