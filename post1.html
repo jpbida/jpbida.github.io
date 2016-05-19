@@ -6,6 +6,11 @@ $("#Projects").removeClass("active");
 $("#home").removeClass("active");
 $("#Tutorials").addClass("active");
 
+$(".link").click(function(){
+var post=$(this).attr("post");
+$("#post").load("https://jpbida.github.io/post"+post+".html");
+});
+
 });
 </script> 
 
@@ -23,14 +28,14 @@ $("#Tutorials").addClass("active");
 </tr> 
 </thead>
 <tbody>
-<tr> <td> R </td> <td>2016-05-09</td> <td>Writing an R Package: Walk through of the steps I took to create the RRNA package</td> </tr>
-<tr> <td> RNA </td> <td>2016-05-09</td> <td> How to create a secondary structure plot using RRNA </td> </tr>
-<tr> <td> R  </td> <td>2016-05-16</td> <td> Outputing a data frame as a sortable HTML table </td> </tr>
-<tr> <td> R  </td> <td>2016-05-18</td> <td> Interfacing R with the HighCharts library</td> </tr>
-<tr> <td> CAD  </td> <td>2016-05-20</td> <td> Hold down tabs with 1/8th MDF </td> </tr>
-<tr> <td> OpenCV  </td> <td>2016-05-22</td> <td> OpenCV worksheet reader</td> </tr>
-<tr> <td> CAD  </td> <td>2016-05-24</td> <td> 3D Scanner to TinkerCAD to CAMBAM to Wooden Derby Car</td> </tr>
-<tr> <td> RNA  </td> <td>2016-05-26</td> <td> Extracting RNA components from PDB </td> </tr>
+<tr> <td> R </td> <td>2016-05-09</td> <td><a href="#" class="link" post="2" > Writing an R Package: Walk through of the steps I took to create the RRNA package</a></td></tr>
+<tr> <td> RNA </td> <td>2016-05-09</td> <td> <a href="#" class="link" post="3" >How to create a secondary structure plot using RRNA</a> </td> </tr>
+<tr> <td> R  </td> <td>2016-05-16</td> <td><a href="#" class="link" post="4" > Outputing a data frame as a sortable HTML table</a> </td> </tr>
+<tr> <td> R  </td> <td>2016-05-18</td> <td><a href="#" class="link" post="5" > Interfacing R with the HighCharts library</a></td> </tr>
+<tr> <td> CAD  </td> <td>2016-05-20</td> <td><a href="#" class="link" post="6" > Hold down tabs with 1/8th MDF</a> </td> </tr>
+<tr> <td> OpenCV  </td> <td>2016-05-22</td> <td><a href="#" class="link" post="7" > OpenCV worksheet reader</a></td> </tr>
+<tr> <td> CAD  </td> <td>2016-05-24</td> <td><a href="#" class="link" post="8" > 3D Scanner to TinkerCAD to CAMBAM to Wooden Derby Car</a> </td> </tr>
+<tr> <td> RNA  </td> <td>2016-05-26</td> <td><a href="#" class="link" post="9" > Extracting RNA components from PDB </a> </td> </tr>
 </tbody> 
 </table>
 </div>
