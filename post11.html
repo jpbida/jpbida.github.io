@@ -1,0 +1,27 @@
+<div class="blog-post">
+            <h2 class="blog-post-title">Using .Rprofile to store dev,test,prod environment information</h2>
+            <p class="blog-post-meta">June 5, 2016 by <a href="#">John Paul Bida</a>
+</p>
+
+<p>
+To create code that can be deployed in multiple environments the environment specific information needs to be stored in a configuration file. For R this configuration file is usually .Rprofile in the users home directory. Storing database connection parameters and paths in this file allows users to share their scripts without having to worry about sharing their credentials. A simple example is given below that sets the user specific path to the analytics repository.  
+</p>
+
+<p> Create a file named .Rprofile in your home directory and set the "Path" option to the directory where the cloned analytics repository is located </p> 
+<pre> 
+### ~/.Rprofile ###
+
+options(Path="/home/username/")
+
+</pre>
+
+<p>When you start a new R session you should now be able to get the path option using the following syntax. </p> 
+
+<pre> 
+path=getOption("Path")
+print(path)
+</pre>  
+
+
+ 
+
